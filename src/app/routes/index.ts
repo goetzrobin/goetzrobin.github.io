@@ -1,62 +1,33 @@
-import { Component } from '@angular/core';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {Component} from "@angular/core";
+import {Observable, of} from "rxjs";
+import {
+  FeaturedBlogPreviewComponent
+} from "../../components/blog/featured-blog-preview/featured-blog-preview.component";
+import {AsyncPipe, NgForOf} from "@angular/common";
+import {injectContentsMetaData} from "../../lib/content-metadata-provider/content-metadata-provider";
+import {ContentMetaData} from "../../lib/content-metadata-provider/ContentMetaData";
+import {PageHeaderComponent} from "../../components/layout/page-header/page-header.component";
 
 @Component({
-  selector: 'app-home',
+  selector: 'home',
   standalone: true,
+  imports: [RouterOutlet, RouterLink, FeaturedBlogPreviewComponent, AsyncPipe, NgForOf, PageHeaderComponent],
   template: `
-    <div>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://angular.io/" target="_blank">
-        <img
-          alt="Angular Logo"
-          class="logo angular"
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-        />
-      </a>
-    </div>
+      <app-page-header
+              title="Robin Goetz"
+              intro="Angular Developer. Analog Enthusiast."
+      ></app-page-header>
 
-    <h1>Vite + Angular</h1>
-
-    <div class="card">
-      <button type="button" (click)="increment()">Count {{ count }}</button>
-    </div>
-
-    <p>
-      Check out
-      <a href="https://github.com/analogjs/analog#readme" target="_blank"
-        >Analog</a
-      >, the fullstack meta-framework for Angular powered by Vite!
-    </p>
-
-    <p class="read-the-docs">
-      Click on the Vite and Angular logos to learn more.
-    </p>
+      <h2
+              class="mt-12 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-3xl">
+          Featured Posts</h2>
+      <div class="mt-6 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <app-featured-blog-preview [article]="article"
+                                     *ngFor="let article of (blogArticles$ | async) ?? []"></app-featured-blog-preview>
+      </div>
   `,
-  styles: [
-    `
-      .logo {
-        height: 6em;
-        padding: 1.5em;
-        will-change: filter;
-      }
-      .logo:hover {
-        filter: drop-shadow(0 0 2em #646cffaa);
-      }
-      .logo.angular:hover {
-        filter: drop-shadow(0 0 2em #42b883aa);
-      }
-      .read-the-docs {
-        color: #888;
-      }
-    `,
-  ],
 })
 export default class HomeComponent {
-  count = 0;
-
-  increment() {
-    this.count++;
-  }
+  public blogArticles$: Observable<ContentMetaData[]> = injectContentsMetaData()
 }
