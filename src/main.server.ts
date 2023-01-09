@@ -4,6 +4,7 @@ import { renderApplication } from '@angular/platform-server';
 import { provideFileRouter } from '@analogjs/router';
 import { provideContent, withMarkdownRenderer } from '@analogjs/content';
 import { withEnabledBlockingInitialNavigation } from '@angular/router';
+import {provideContentMetadataProvider} from "./lib/content-metadata-provider/content-metadata-provider";
 
 import { AppComponent } from './app/app.component';
 
@@ -19,6 +20,7 @@ export default async function render(url: string, document: string) {
     providers: [
       provideFileRouter(withEnabledBlockingInitialNavigation()),
       provideContent(withMarkdownRenderer()),
+      provideContentMetadataProvider()
     ],
   });
 

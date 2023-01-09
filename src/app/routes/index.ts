@@ -1,13 +1,13 @@
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {Component} from "@angular/core";
+import {Component, inject} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {
   FeaturedBlogPreviewComponent
 } from "../../components/blog/featured-blog-preview/featured-blog-preview.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
-import {injectContentsMetaData} from "../../lib/content-metadata-provider/content-metadata-provider";
 import {ContentMetaData} from "../../lib/content-metadata-provider/ContentMetaData";
 import {PageHeaderComponent} from "../../components/layout/page-header/page-header.component";
+import {ContentMetadataProvider} from "../../lib/content-metadata-provider/analog-content-metadata-provider";
 
 @Component({
   selector: 'home',
@@ -29,5 +29,5 @@ import {PageHeaderComponent} from "../../components/layout/page-header/page-head
   `,
 })
 export default class HomeComponent {
-  public blogArticles$: Observable<ContentMetaData[]> = injectContentsMetaData()
+  public blogArticles$: Observable<ContentMetaData[]> = inject(ContentMetadataProvider).injectMetadata();
 }

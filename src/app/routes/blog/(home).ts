@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {BlogPreviewComponent} from "../../../components/blog/blog-preview/blog-preview.component";
 import {Observable} from "rxjs";
 import {AsyncPipe, NgForOf} from "@angular/common";
-import {injectContentsMetaData} from "../../../lib/content-metadata-provider/content-metadata-provider";
 import {PageHeaderComponent} from "../../../components/layout/page-header/page-header.component";
 import {ContentMetaData} from "../../../lib/content-metadata-provider/ContentMetaData";
+import {ContentMetadataProvider} from "../../../lib/content-metadata-provider/analog-content-metadata-provider";
 
 @Component({
   selector: 'blog',
@@ -22,5 +22,5 @@ import {ContentMetaData} from "../../../lib/content-metadata-provider/ContentMet
   `,
 })
 export default class BlogComponent {
-  public blogArticles$: Observable<ContentMetaData[]> = injectContentsMetaData();
+  public blogArticles$: Observable<ContentMetaData[]> = inject(ContentMetadataProvider).injectMetadata();
 }
