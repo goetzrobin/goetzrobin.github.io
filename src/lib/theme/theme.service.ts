@@ -1,11 +1,11 @@
-import {inject, Injectable, OnInit, PLATFORM_ID, Renderer2} from '@angular/core';
-import {BehaviorSubject, filter, skip, Subject, tap} from "rxjs";
+import {inject, Injectable, PLATFORM_ID, Renderer2} from '@angular/core';
+import {Subject} from "rxjs";
 import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeService{
+export class ThemeService {
   private _platformId = inject(PLATFORM_ID);
   private _theme$ = new Subject<'light' | 'dark'>();
   public theme$ = this._theme$.asObservable();

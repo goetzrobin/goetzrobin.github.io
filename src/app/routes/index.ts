@@ -1,14 +1,12 @@
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {Component, inject} from "@angular/core";
-import {Observable, of} from "rxjs";
+import {Component} from "@angular/core";
 import {
   FeaturedBlogPreviewComponent
 } from "../../components/blog/featured-blog-preview/featured-blog-preview.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
-import {ContentMetaData} from "../../lib/content-metadata-provider/ContentMetaData";
 import {PageHeaderComponent} from "../../components/layout/page-header/page-header.component";
-import {ContentMetadataProvider} from "../../lib/content-metadata-provider/analog-content-metadata-provider";
-import {ContentRenderer} from "@analogjs/content";
+import {injectContentFiles} from "@analogjs/content";
+import {ContentMetadata} from "../../lib/content-metadata/content-metadata";
 
 @Component({
   selector: 'home',
@@ -25,17 +23,12 @@ import {ContentRenderer} from "@analogjs/content";
           Featured Posts</h2>
 
       <div class="mt-6 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <app-featured-blog-preview [article]="article"
-                                     *ngFor="let article of (blogArticles$ | async) ?? []"></app-featured-blog-preview>
+          <app-featured-blog-preview [article]="article.attributes"
+                                     *ngFor="let article of blogArticles ?? []"></app-featured-blog-preview>
       </div>
-
-      <div [innerHTML]="html$ | async"></div>
   `,
 })
 export default class HomeComponent {
-  // this works
-  public html$ = inject(ContentRenderer).render('# Content Renderer Injected')
-  // this does not work
-  public blogArticles$: Observable<ContentMetaData[]> = inject(ContentMetadataProvider).injectMetadata();
+  public blogArticles = injectContentFiles<ContentMetadata>()
 
 }

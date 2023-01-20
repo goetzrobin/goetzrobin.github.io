@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
-import {ContentMetaData} from "../../../lib/content-metadata-provider/ContentMetaData";
+import {ContentMetadata} from "../../../lib/content-metadata/content-metadata";
 
 @Component({
   selector: 'app-featured-blog-preview',
@@ -26,5 +26,5 @@ import {ContentMetaData} from "../../../lib/content-metadata-provider/ContentMet
 })
 export class FeaturedBlogPreviewComponent {
   @Input()
-  public article?: ContentMetaData
+  public article?: ContentMetadata
 }

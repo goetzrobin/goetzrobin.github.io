@@ -1,11 +1,10 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {BlogPreviewComponent} from "../../../components/blog/blog-preview/blog-preview.component";
-import {Observable} from "rxjs";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {PageHeaderComponent} from "../../../components/layout/page-header/page-header.component";
-import {ContentMetaData} from "../../../lib/content-metadata-provider/ContentMetaData";
-import {ContentMetadataProvider} from "../../../lib/content-metadata-provider/analog-content-metadata-provider";
+import {injectContentFiles} from "@analogjs/content";
+import {ContentMetadata} from "../../../lib/content-metadata/content-metadata";
 
 @Component({
   selector: 'blog',
@@ -17,10 +16,10 @@ import {ContentMetadataProvider} from "../../../lib/content-metadata-provider/an
       intro="I am writing online about web development. I started in 2023, and mostly write about Angular."
     ></app-page-header>
     <div class="mt-12 flex max-w-3xl flex-col space-y-16">
-      <app-blog-preview [article]="article" *ngFor="let article of (blogArticles$ | async) ?? []"></app-blog-preview>
+      <app-blog-preview [article]="article.attributes" *ngFor="let article of blogArticles"></app-blog-preview>
     </div>
   `,
 })
 export default class BlogComponent {
-  public blogArticles$: Observable<ContentMetaData[]> = inject(ContentMetadataProvider).injectMetadata();
+  public blogArticles = injectContentFiles<ContentMetadata>()
 }
