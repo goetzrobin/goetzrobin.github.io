@@ -53,8 +53,6 @@ jobs:
        uses: actions/upload-pages-artifact@v1
        with:
          path: ./dist/app/server/public
-         url: goetzrobin.github.io
-
   # Deployment job
   deploy:
     environment:
