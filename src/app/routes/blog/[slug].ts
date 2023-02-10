@@ -1,14 +1,14 @@
 import {DatePipe} from '@angular/common';
 import {Component} from '@angular/core';
-import FrontMatterDirective from "../../../lib/front-matter/front-matter.directive";
+import AnalogContentDirective from "../../../lib/front-matter/analog-content.directive";
 import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'blog-post',
   standalone: true,
-  imports: [DatePipe, RouterLink, FrontMatterDirective],
+  imports: [DatePipe, RouterLink, AnalogContentDirective],
   template: `
-    <article *frontMatter="let meta = metadata; let content = content">
+    <article *analogContent="let meta = metadata; let content = content">
       <header class="flex flex-col">
         <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
           {{meta.title}}
