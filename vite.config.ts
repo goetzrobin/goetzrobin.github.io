@@ -16,7 +16,6 @@ export default defineConfig( () => {
     },
     plugins: [
       analog({
-          static: true,
           prerender: {
             routes: extractRoutesToPrerender(),
           },
