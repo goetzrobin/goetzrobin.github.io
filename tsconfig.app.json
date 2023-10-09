@@ -2,6 +2,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist/out-tsc",
     "types": [],
     "target": "ES2022",
