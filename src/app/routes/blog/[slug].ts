@@ -1,25 +1,46 @@
-import {DatePipe} from '@angular/common';
-import {Component} from '@angular/core';
-import AnalogContentDirective from "../../../lib/front-matter/analog-content.directive";
-import {RouterLink} from "@angular/router";
+import {
+  ContentRenderer,
+  injectContent,
+  MarkdownComponent,
+} from '@analogjs/content';
+import { RouteMeta } from '@analogjs/router';
+import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { map } from 'rxjs';
+
+import { postMetaResolver, postTitleResolver } from '../../../lib/resolvers/resolvers';
+import { ContentMetadata } from 'src/lib/content-metadata/content-metadata';
+
+export const routeMeta: RouteMeta = {
+  title: postTitleResolver,
+  meta: postMetaResolver,
+};
 
 @Component({
-  selector: 'blog-post',
   standalone: true,
-  imports: [DatePipe, RouterLink, AnalogContentDirective],
+  imports: [MarkdownComponent, AsyncPipe, NgIf, NgFor, JsonPipe],
   template: `
-    <article *analogContent="let meta = metadata; let content = content">
-      <header class="flex flex-col">
-        <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-          {{meta.title}}
-        </h1>
-        <time [attr.datetime]="meta.date | date"
-              class="order-first flex items-center text-base text-rose-500">
-          {{meta.date | date}}</time>
-      </header>
-      <div class="pt-8 !max-w-screen-lg sm:pt-12 prose dark:prose-invert" [innerHTML]="content"></div>
-    </article>
+    <ng-container *ngIf="post$ | async as post">
+      <h1>{{ post.attributes.title }}</h1>
+      <div *ngIf="toc$ | async as toc">
+        <ul>
+          <li *ngFor="let item of toc">
+            <a href="#{{ item.id }}">{{ item.text }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <analog-markdown [content]="post.content"></analog-markdown>
+    </ng-container>
   `,
 })
 export default class BlogPostComponent {
+  readonly renderer = inject(ContentRenderer);
+  readonly post$ = injectContent<ContentMetadata>();
+
+  readonly toc$ = this.post$.pipe(
+    map(() => {
+      return this.renderer.getContentHeadings();
+    })
+  );
 }

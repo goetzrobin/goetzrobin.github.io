@@ -8,31 +8,18 @@ import {extractRoutesToPrerender} from "./vite-prerender.utils";
 export default defineConfig( () => {
   return {
     publicDir: 'src/assets',
-    ssr: {
-      noExternal: ['@analogjs/router'],
+    optimizeDeps: {
+      include: ['@angular/common'],
     },
     build: {
       target: ['es2020'],
     },
     plugins: [
       analog({
-        ssr: true,
-        ssrBuildDir: './dist/app/ssr',
-        entryServer: 'src/main.server.ts',
-        vite: {
-          tsconfig: 'tsconfig.app.json',
-        },
-        nitro: {
-          rootDir: '',
-          output: {
-            dir: '../dist/app/server',
-            publicDir: '../dist/app/server/public',
-          },
-          buildDir: './dist/app/.nitro',
+          static: true,
           prerender: {
             routes: extractRoutesToPrerender(),
           },
-        },
       }),
     ],
   };
