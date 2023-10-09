@@ -16,7 +16,7 @@ import {ContentMetadata} from "../../lib/content-metadata/content-metadata";
       <app-page-header
               title="Robin Goetz"
               intro="Angular Developer. Analog Enthusiast."
-      ></app-page-header>
+     />
 
       <h2
               class="mt-12 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-3xl">
@@ -24,11 +24,10 @@ import {ContentMetadata} from "../../lib/content-metadata/content-metadata";
 
       <div class="mt-6 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <app-featured-blog-preview [article]="article.attributes"
-                                     *ngFor="let article of blogArticles ?? []"></app-featured-blog-preview>
+                                     *ngFor="let article of blogArticles ?? []"/>
       </div>
   `,
 })
 export default class HomeComponent {
   public blogArticles = injectContentFiles<ContentMetadata>()
-
 }
