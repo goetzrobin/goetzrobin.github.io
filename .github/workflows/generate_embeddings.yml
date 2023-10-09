@@ -6,6 +6,8 @@ on: # run on main branch changes
 
 jobs:
   generate:
+    environment:
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
