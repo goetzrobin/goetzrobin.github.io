@@ -10,9 +10,9 @@ import { CommonModule } from '@angular/common';
   },
   template: `
     <h1
-      class="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
+      class="text-4xl font-bold tracking-tight sm:text-5xl">
       {{title}}</h1>
-    <p class="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+    <p class="mt-6 text-base text-muted-foreground ">
       {{intro}}
     </p>
   `,

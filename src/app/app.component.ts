@@ -10,17 +10,17 @@ import {FooterComponent} from "../components/layout/footer/footer.component";
   standalone: true,
   imports: [RouterOutlet, RouterLink, HeaderComponent, FooterComponent],
   host: {
-    class: 'text-zinc-900 dark:text-zinc-200 dark:bg-zinc-800 overflow-y-scroll flex flex-col w-full h-full'
+    class: 'overflow-y-scroll flex flex-col w-full h-full'
   },
   template: `
-    <app-header class="w-full mx-auto max-w-7xl" (toggleThemeClicked)="toggleDarkMode()"></app-header>
+    <app-header class="w-full mx-auto max-w-screen-xl" (toggleThemeClicked)="toggleDarkMode()"/>
     <div class="flex-1 px-4 sm:px-8 mt-9">
-      <div class="mx-auto max-w-4xl lg:px-8">
-        <router-outlet></router-outlet>
+      <div class="mx-auto max-w-screen-lg lg:px-8">
+        <router-outlet/>
       </div>
     </div>
-    <app-footer class="w-full mx-auto max-w-7xl" name="Robin Goetz"></app-footer>
-  `,
+    <app-footer class="w-full mx-auto max-w-screen-xl" name="Robin Goetz"/>
+    `
 })
 export class AppComponent implements OnInit {
   private _themeService = inject(ThemeService);
@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this._themeService.init(this._renderer, this._document);
-
   }
 
   public toggleDarkMode(): void {

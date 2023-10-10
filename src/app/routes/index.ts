@@ -18,8 +18,7 @@ import {ContentMetadata} from "../../lib/content-metadata/content-metadata";
               intro="Angular Developer. Analog Enthusiast."
      />
 
-      <h2
-              class="mt-12 text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-3xl">
+      <h2 class="mt-12 text-2xl font-bold tracking-tight sm:text-3xl">
           Featured Posts</h2>
 
       <div class="mt-6 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -29,5 +28,5 @@ import {ContentMetadata} from "../../lib/content-metadata/content-metadata";
   `,
 })
 export default class HomeComponent {
-  public blogArticles = injectContentFiles<ContentMetadata>()
+  public blogArticles = injectContentFiles<ContentMetadata>().reverse().filter((_, i) => i < 3)
 }

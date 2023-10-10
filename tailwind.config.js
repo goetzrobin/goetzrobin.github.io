@@ -5,9 +5,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx,md}",
   ],
-  theme: {
-    extend: {},
-  },
+  presets: [require('@spartan-ng/ui-core/hlm-tailwind-preset')],
   plugins: [
     require('@tailwindcss/typography'),
   ],

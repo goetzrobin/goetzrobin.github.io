@@ -11,6 +11,13 @@ export default defineConfig( () => {
     optimizeDeps: {
       include: ['@angular/common'],
     },
+    ssr: {
+      noExternal: [
+        '@spartan-ng/**',
+        '@angular/cdk/**',
+        '@ng-icons/**',
+      ]
+    },
     build: {
       target: ['es2020'],
     },
