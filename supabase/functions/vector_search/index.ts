@@ -98,9 +98,9 @@ serve(async (req) => {
 
     const prompt = codeBlock`
       ${oneLine`
-        You are a very enthusiastic Supabase representative who loves
-        to help people! Given the following sections from the Supabase
-        documentation, answer the question using only that information,
+        You are a very enthusiastic spartan.ng representative who loves
+        to help people! Given the following sections from the creators personal blog,
+        answer the question using only that information,
         outputted in markdown format. If you are unsure and the answer
         is not explicitly written in the documentation, say
         "Sorry, I don't know how to help with that."
