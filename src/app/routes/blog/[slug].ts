@@ -43,7 +43,7 @@ export const routeMeta: RouteMeta = {
   ],
   host: {
     class:
-      'max-w-screen-md relative py-6 lg:gap-10 lg:py-8 xl:grid',
+      'max-w-screen-md relative py-6 lg:gap-10 lg:py-8',
   },
   template: `
     <div *ngIf="post$ | async as post">
