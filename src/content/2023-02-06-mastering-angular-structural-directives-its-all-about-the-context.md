@@ -300,9 +300,6 @@ export class AppComponent {
   public toInput = 'EUR';
 }
 ```
-And see our code in action:
-
-<img width="100%" style="width:100%" src="https://media.giphy.com/media/A9sb8jm6ANkGVsuK3n/giphy.gif">
 
 Awesome! We have now interacted with the rest of the app through inputs and outputs, even the world outside our application by injecting the HttpClient and making API calls to remote servers! Everything from within our structural directive.
 
